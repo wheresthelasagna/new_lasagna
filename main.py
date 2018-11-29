@@ -14,10 +14,14 @@ move_right = False
 move_left = False
 move_up = False
 move_down = False
+orient = 'right'
 
 while True: #game loop
 	screen.fill(BLACK)
-	screen.blit(thor,pos)
+	if orient == 'right':
+		screen.blit(thor,pos)
+	elif orient == 'left':
+		screen.blit(pg.transform.flip(thor,True,False),pos)
 	pg.draw.rect(screen,BLUE,(WIDTH/2,HEIGHT/2,pupper.get_width(),pupper.get_height()))
 	if move_right:
 		pos[0] += 8
@@ -27,7 +31,19 @@ while True: #game loop
 		pos[1] -= 4
 	if move_down:
 		pos[1] += 4
-
+		
+	thor_rect.x = pos[0]
+	thor_rect.y = pos[1]
+	
+	if thor_rect.x > WIDTH: #set wrap
+		pos[0] = 0
+	if thor_rect.x < 0:
+		pos[0] = WIDTH
+	if thor_rect.y > HEIGHT:
+		pos[1] = 0
+	if thor_rect.y < 0:
+		pos[1] = HEIGHT
+	
 	for event in pg.event.get():
 		if event.type == QUIT:
 			pg.quit()
@@ -38,8 +54,10 @@ while True: #game loop
 				sys.exit()
 			if event.key == K_RIGHT:
 				move_right = True
+				orient = 'right'
 			if event.key == K_LEFT:
 				move_left = True
+				orient = 'left'
 			if event.key == K_UP:
 				move_up = True
 			if event.key == K_DOWN:
