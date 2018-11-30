@@ -1,4 +1,4 @@
-# http://usingpython.com/pygame-intro/
+#http://usingpython.com/pygame-intro/
 import pygame as pg
 import sys
 from pygame.locals import *
@@ -18,15 +18,15 @@ orient = 'right'
 
 while True: #game loop
 	screen.fill(BLACK)
-	
+
 	if move_right:
-		pos[0] += 8
+		pos[0] += 10
 	if move_left:
-		pos[0] -= 8
+		pos[0] -= 10
 	if move_up:
-		pos[1] -= 4
+		pos[1] -= 5
 	if move_down:
-		pos[1] += 4
+		pos[1] += 5
 
 	thor_rect.x = pos[0]
 	thor_rect.y = pos[1]
@@ -40,21 +40,15 @@ while True: #game loop
 	if thor_rect.y + thor.get_height() < 0:
 		pos[1] = HEIGHT
 
-	if thor_rect.colliderect(rect1):
-		pg.draw.rect(screen,RED,rect1)
-	else:
-		pg.draw.rect(screen,GREEN,rect1)
-	pg.draw.rect(screen,WHITE,rect2)
-	pg.draw.rect(screen,WHITE,rect3)
-	pg.draw.rect(screen,WHITE,rect4)
-	pg.draw.rect(screen,WHITE,rect5)
-	pg.draw.rect(screen,WHITE,rect6)
-	
+	for row in range(MAPHEIGHT):
+		for column in range(MAPWIDTH):
+				pygame.draw.rect(display.)
+
 	if orient == 'right':
 		screen.blit(thor,pos)
 	elif orient == 'left':
 		screen.blit(pg.transform.flip(thor,True,False),pos)
-		
+
 	for event in pg.event.get():
 		if event.type == QUIT:
 			pg.quit()
